@@ -19,4 +19,4 @@ v2.2.0 // update minor / feature
 v2.2.1 // update patch
 ```
 
-> Note: about [Git taging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+> Notes: about [Git taging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)

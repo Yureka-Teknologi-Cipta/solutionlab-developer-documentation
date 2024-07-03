@@ -38,3 +38,5 @@ sidebar_position: 2
 ## Git Hooks
 
 1. [Husky](https://typicode.github.io/husky/), pre commit before push for make standard code.
+
+> Notes: All projects must using [Docker](https://www.docker.com/)
