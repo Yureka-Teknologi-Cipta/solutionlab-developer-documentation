@@ -15,8 +15,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Yureka-Teknologi-Cipta', // Usually your GitHub org/user name.
+  projectName: 'solutionlab-developer-documentation', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -38,14 +38,14 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -70,7 +70,16 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        // {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          to: 'https://github.com/Yureka-Teknologi-Cipta/',
+          label: 'Github YTC',
+          position: 'left',
+        },
+        {
+          to: 'https://github.com/Join-Sistem/',
+          label: 'Github Join Sistem',
+          position: 'left',
+        },
         // {
         //   href: 'https://github.com/facebook/docusaurus',
         //   label: 'GitHub',
