@@ -3,52 +3,52 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Solutionlabs',
-  tagline: 'The Solutionlabs documentation',
-  favicon: 'img/favicon.ico',
+  title: "Solutionlabs",
+  tagline: "The Solutionlabs documentation",
+  favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: 'https://docs.solutionlab.id',
+  url: "https://docs.solutionlab.id",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Yureka-Teknologi-Cipta', // Usually your GitHub org/user name.
-  projectName: 'solutionlab-developer-documentation', // Usually your repo name.
+  organizationName: "Yureka-Teknologi-Cipta", // Usually your GitHub org/user name.
+  projectName: "solutionlab-developer-documentation", // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en", "id"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/',
+            "https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/',
+            "https://github.com/Yureka-Teknologi-Cipta/solutionlab-developer-documentation/tree/main/",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -56,29 +56,29 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: 'Solutionlabs',
+      title: "Solutionlabs",
       logo: {
-        alt: 'Solutionlabs Logo',
-        src: 'img/logo.svg',
+        alt: "Solutionlabs Logo",
+        src: "img/logo.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Docs',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Docs",
         },
         {
-          to: 'https://github.com/Yureka-Teknologi-Cipta/',
-          label: 'Github YTC',
-          position: 'left',
+          to: "https://github.com/Yureka-Teknologi-Cipta/",
+          label: "Github YTC",
+          position: "left",
         },
         {
-          to: 'https://github.com/Join-Sistem/',
-          label: 'Github Join Sistem',
-          position: 'left',
+          to: "https://github.com/Join-Sistem/",
+          label: "Github Join Sistem",
+          position: "left",
         },
         // {
         //   href: 'https://github.com/facebook/docusaurus',
@@ -88,7 +88,7 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         // {
         //   title: 'Docs',
@@ -134,6 +134,7 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
+      additionalLanguages: ["docker", "nginx", "ini"],
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
