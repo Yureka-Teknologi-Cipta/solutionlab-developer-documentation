@@ -19,3 +19,5 @@ Dokumentasi ini dirancang untuk:
 - Components UI : [shadcn/ui](https://ui.shadcn.com/). 
 - CSS Library: [TailwindCSS](https://tailwindcss.com/docs/installation)
 - Icons Library: [Lucide Icons](https://lucide.dev/icons/)
+
+<mark>**WAJIB MENGGUNAKAN TYPESCRIPT**</mark>

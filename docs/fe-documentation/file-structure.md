@@ -12,7 +12,7 @@ Bagian ini menjelaskan struktur file dan folder yang digunakan dalam proyek fron
 - CSS Library: [TailwindCSS](https://tailwindcss.com/docs/installation)
 - Icons Library: [Lucide Icons](https://lucide.dev/icons/)
 
-<mark>**WAJIB MENGGUNAKAN TypeScript**</mark>
+<mark>**WAJIB MENGGUNAKAN TYPESCRIPT**</mark>
 
 ### Directory Structure
 
