@@ -32,7 +32,7 @@ deploy_dev:
 - **`timeout-minutes: 10`**: Sets a timeout for the job, terminating it if it exceeds 10 minutes.
 - **`env`**: Defines the environment variables for the job.
 
-KUBE_SECRET : obtained from the yaml file in the secrets, usually named with the name of the deployer <br>
+KUBE_SECRET : obtained from the yaml file in the secrets, usually named with the name of the deployer <br />
 KUBE_URL : obtained from the server address or IP address
 
 ### Checkout and Lowercase Image Name

@@ -102,10 +102,13 @@ Apply the role binding:
 kubectl apply -f rolebinding.yaml
 ```
 
-create this in a single file, serviceaccount.yml </br>
+Create Service Account called `serviceaccount.yml` and then apply <br />
+```sh
 kubectl apply -f serviceaccount.yml -n <namespace>
+```
 
 ```yaml
+# serviceaccount.yml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
