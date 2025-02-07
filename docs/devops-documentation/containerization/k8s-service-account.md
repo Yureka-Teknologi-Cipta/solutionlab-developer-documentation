@@ -270,6 +270,29 @@ contexts:
 current-context: yureka-cluster
 ```
 
+alternative to create kubeconfig without manual input
+```bash
+kubectl config set-cluster my-cluster --server=<API_SERVER_URL> --certificate-authority=ca.crt
+
+kubectl config set-credentials my-service-account --token=<SERVICE_ACCOUNT_TOKEN>
+
+kubectl config set-context my-sa-context --cluster=my-cluster --user=my-service-account --namespace=default
+
+kubectl config use-context my-sa-context
+```
+
+sample
+```bash
+kubectl config set-cluster yureka-dev --server=https://192.168.18.2 --certificate-authority=ca.crt
+
+kubectl config set-credentials developer-johndoe --token=RkxFa2JtNTd0V1JRd1p1cVhqY3lBZ1ZUUGVENE1uejJDWXJOOHZzS2Z4OUpoVTYzZEgNCmRzYjdyTTV4TnFaQlA2UUpZemtLRXlBV0wzdG1GMlI4Q1h2VTR1andWRFRmR2FoSGVjDQpGRThtekdVMzc2ZVJmYWhZUVNIV3B1eHNDZ3ZUVjljUHJuTkw0Mk1LNURqSmJYd2taeQ0KeHJMQVJkSHFhdkVOazRDNXVTM1llanBUbnQ2WGhaSmZHRG1QV2dGQndiMnpLOVVReWMNCm42YUd3dUt2WEF5U0NQajlzUWRSOGVXcjNaSHE3Rm1KRFlNdGJCZlU0RTVjemtUcDJO
+
+kubectl config set-context developer-johndoe --cluster=yureka-dev --user=developer-johndoe --namespace=yureka-dev
+
+kubectl config use-context developer-johndoe
+```
+
+
 To test the configuration, use the command below.
 
 ```bash
