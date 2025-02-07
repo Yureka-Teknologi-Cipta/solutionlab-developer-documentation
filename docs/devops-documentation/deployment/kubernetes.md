@@ -15,6 +15,10 @@ deploy_dev:
   runs-on: ubuntu-24.04
   needs: build_dev
   timeout-minutes: 10
+  permissions:
+    id-token: write
+    contents: read
+    actions: read
   env:
     CPU_LIMIT: ${{ vars.DEV_CPU_LIMIT }}
     CPU_REQUEST: ${{ vars.DEV_CPU_REQUEST }}
@@ -25,15 +29,25 @@ deploy_dev:
     NAMESPACE: ${{ vars.DEV_NAMESPACE }}
 ```
 
-- **`deploy_dev`**: This section defines a job within the GitHub Actions workflow.
-- **`name: Deploy Kubernetes`**: Specifies the name of the job as "Deploy Kubernetes".
-- **`runs-on: ubuntu-24.04`**: Indicates that the job will run on a GitHub Actions runner with Ubuntu 24.04.
-- **`needs: build_dev`**: Specifies that this job is dependent on the successful completion of the `build_dev` job.
-- **`timeout-minutes: 10`**: Sets a timeout for the job, terminating it if it exceeds 10 minutes.
-- **`env`**: Defines the environment variables for the job.
+- **`deploy_dev`**: Defines a job in the GitHub Actions workflow responsible for deploying to Kubernetes.  
+- **`name: Deploy to Kubernetes`**: Assigns a descriptive name to the job.  
+- **`runs-on: ubuntu-24.04`**: Specifies that the job runs on an Ubuntu 24.04 GitHub Actions runner.  
+- **`needs: build_dev`**: Ensures this job only runs after the `build_dev` job has completed successfully.  
+- **`timeout-minutes: 10`**: Sets a maximum execution time of 10 minutes to prevent long-running jobs.  
+- **`permissions`**: Grants specific permissions required for the job:  
+  - `id-token: write` – Enables OIDC authentication.  
+  - `contents: read` – Allows access to repository contents.  
+  - `actions: read` – Grants read access to GitHub Actions workflows.  
+- **`env`**: Defines environment variables used during deployment:  
+  - **`CPU_LIMIT` / `CPU_REQUEST`** – CPU resource limits and requests, sourced from GitHub Actions variables.  
+  - **`MEMORY_LIMIT` / `MEMORY_REQUEST`** – Memory resource limits and requests.  
+  - **`KUBE_SECRET`** – Kubernetes secret for authentication, stored in GitHub Actions secrets.  
+  - **`KUBE_URL`** – Kubernetes cluster API endpoint.  
+  - **`NAMESPACE`** – The target Kubernetes namespace for deployment.  
 
-KUBE_SECRET : obtained from the yaml file in the secrets, usually named with the name of the deployer <br />
-KUBE_URL : obtained from the server address or IP address
+
+`KUBE_SECRET` : obtained from the yaml file in the secrets, usually named with the name of the deployer <br />
+`KUBE_URL` : obtained from the server address or IP address
 
 ### Checkout and Lowercase Image Name
 
@@ -127,6 +141,10 @@ deployment file
     runs-on: ubuntu-24.04
     needs: build_dev
     timeout-minutes: 10
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -148,14 +166,14 @@ deployment file
           sed -i "s|{{ PROTOCOL }}|$PROTOCOL|g" ./deployment/k8s/d.yml
 
       - name: Set Context
-        uses: azure/k8s-set-context@v1
+        uses: azure/k8s-set-context@v4
         with:
           method: service-account
           k8s-url: ${{ env.KUBE_URL }}
           k8s-secret: ${{ env.KUBE_SECRET }}
       
       - name: Deploy to the Kubernetes Cluster
-        uses: azure/k8s-deploy@v1
+        uses: azure/k8s-deploy@v5
         with:
           namespace: ${{ env.NAMESPACE }}
           manifests: ./deployment/k8s/d.yml
