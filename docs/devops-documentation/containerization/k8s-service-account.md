@@ -112,12 +112,11 @@ kubectl apply -f serviceaccount.yml -n <namespace>
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ sa-name }}
+  name: {{ serviceaccount-name }}
   namespace: {{ namespace }}
 secrets:
   - name: {{ token-name }}
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -144,11 +143,10 @@ rules:
       - patch
       - delete
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ sa-name }}
+  name: {{ serviceaccount-name }}
   namespace: {{ namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -156,11 +154,9 @@ roleRef:
   name: read-write
 subjects:
 - kind: ServiceAccount
-  name: {{ sa-name }}
+  name: {{ serviceaccount-name }}
   namespace: {{ namespace }}
-
 ---
-
 apiVersion: v1
 kind: Secret
 metadata:
@@ -181,7 +177,6 @@ metadata:
 secrets:
   - name: deployer-secrets
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -208,7 +203,6 @@ rules:
       - patch
       - delete
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -222,9 +216,7 @@ subjects:
 - kind: ServiceAccount
   name: deployer
   namespace: yureka-dev
-
 ---
-
 apiVersion: v1
 kind: Secret
 metadata:
@@ -232,4 +224,77 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: deployer
 type: kubernetes.io/service-account-token
+```
+
+Create a kubeconfig file from a ServiceAccount for developer access (not for deployer).
+Save the file as config in the $HOME/.kube/ directory.
+
+To retrieve specific content, run the following command.
+
+```bash
+TOKEN=$(kubectl get secret developer-akbar-secrets -n joinsistem-dev -o jsonpath="{.data.token}")
+
+SERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+
+CA_CERT=$(kubectl get secret developer-akbar-secrets -n joinsistem-dev -o jsonpath="{.data.ca\.crt}")
+```
+
+```bash
+echo $TOKEN
+echo $SERVER
+echo $CA_CERT
+```
+
+Save it to this file.
+
+```yaml
+#$HOME./kube/config
+#config
+apiVersion: v1
+kind: Config
+clusters:
+- name: yureka-cluster
+  cluster:
+    server: $SERVER
+    certificate-authority-data: $CA_CERT
+users:
+- name: developer-johndoe
+  user:
+    token: $TOKEN
+contexts:
+- name: yureka-cluster
+  context:
+    cluster: yureka-cluster
+    user: developer-johndoe
+    namespace: yureka-dev
+current-context: yureka-cluster
+```
+
+alternative to create kubeconfig without manual input
+```bash
+kubectl config set-cluster my-cluster --server=<API_SERVER_URL> --certificate-authority=ca.crt
+
+kubectl config set-credentials my-service-account --token=<SERVICE_ACCOUNT_TOKEN>
+
+kubectl config set-context my-sa-context --cluster=my-cluster --user=my-service-account --namespace=default
+
+kubectl config use-context my-sa-context
+```
+
+sample
+```bash
+kubectl config set-cluster yureka-dev --server=https://192.168.18.2 --certificate-authority=ca.crt
+
+kubectl config set-credentials developer-johndoe --token=RkxFa2JtNTd0V1JRd1p1cVhqY3lBZ1ZUUGVENE1uejJDWXJOOHZzS2Z4OUpoVTYzZEgNCmRzYjdyTTV4TnFaQlA2UUpZemtLRXlBV0wzdG1GMlI4Q1h2VTR1andWRFRmR2FoSGVjDQpGRThtekdVMzc2ZVJmYWhZUVNIV3B1eHNDZ3ZUVjljUHJuTkw0Mk1LNURqSmJYd2taeQ0KeHJMQVJkSHFhdkVOazRDNXVTM1llanBUbnQ2WGhaSmZHRG1QV2dGQndiMnpLOVVReWMNCm42YUd3dUt2WEF5U0NQajlzUWRSOGVXcjNaSHE3Rm1KRFlNdGJCZlU0RTVjemtUcDJO
+
+kubectl config set-context developer-johndoe --cluster=yureka-dev --user=developer-johndoe --namespace=yureka-dev
+
+kubectl config use-context developer-johndoe
+```
+
+
+To test the configuration, use the command below.
+
+```bash
+kubectl get deployment -n yureka-dev
 ```
